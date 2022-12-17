@@ -6,3 +6,35 @@ nav {
   display: flex;
   justify-content: space-around;
 }
+
+nav a {
+  padding: 0.5rem;
+}
+
+nav a.selected {
+  background-color: teal;
+  color: white;
+  border: solid 3px teal;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  height: 2rem;
+  width: 250px;
+}
+
+button {
+  height: 2rem;
+  width: 125px;
+  background-color: teal;
+  border-color: white;
+}
+
+form > *{
+  margin: 0.5px;
+}
