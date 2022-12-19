@@ -4,6 +4,7 @@ import { HashRouter, Routes, Route, Link, useParams, useLocation } from 'react-r
 import Posts from './Posts';
 import Post from './Post';
 import Nav from './Nav';
+import Login from './Login';
 
 const App = () => {
   //https://strangers-things.herokuapp.com/api/
@@ -17,14 +18,9 @@ const App = () => {
   const [loginMessage, setLoginMessage] = useState('');
   const [user, setUser] = useState([]);
 
-  useEffect(() => {
-    fetch('https://strangers-things.herokuapp.com/api/2209-FTB-WEB-PT_AM/posts')
-      .then(response => response.json())
-      .then(json => setPosts(json.data.posts));
-
+  const exchangeTokenForUser = () => {
     const token = window.localStorage.getItem('token');
     if(token) {
-      console.log(token);
       fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/me', {
         headers: {
           'Content-Type' : 'application/json',
@@ -38,6 +34,14 @@ const App = () => {
       })
       .catch(err => console.log(err));
     }
+  }
+
+  useEffect(() => {
+    fetch('https://strangers-things.herokuapp.com/api/2209-FTB-WEB-PT_AM/posts')
+      .then(response => response.json())
+      .then(json => setPosts(json.data.posts));
+
+    exchangeTokenForUser();
   }, []);
 
   const register = (ev) => {
@@ -61,49 +65,8 @@ const App = () => {
         setRegisterMessage(result.data.message);
       } else {
         setRegisterMessage(result.error.message);
+        throw result.error;
       }
-    })
-    .catch(err => console.log(err));
-  }
-
-  const login = (ev) => {
-    ev.preventDefault();
-    fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/login', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        user: {
-          username: loginUsername,
-          password: loginPassword
-        }
-      })
-    })
-    .then(response => response.json())
-    .then(result => {
-      //Verifying successful login & message to user
-      if(result.success) {
-        setLoginMessage(result.data.message);
-      } else {
-        setLoginMessage(result.error.message);
-      }
-      //Get the token
-      const token = result.data.token;
-      console.log(token);
-      window.localStorage.setItem('token', token);
-      fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/me', {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-      })
-      .then(response => response.json())
-      .then(result => {
-        const user = result.data;
-        setUser(user);
-      })
-      .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
   }
@@ -140,20 +103,7 @@ const App = () => {
               <button>Register</button>
               <p>{registerMessage}</p>
             </form>
-            <form onSubmit={ login }>
-              <input
-                placeholder='username'
-                value={loginUsername}
-                onChange={ev => setLoginUsername(ev.target.value)}
-              />
-              <input
-                placeholder='password'
-                value={loginPassword}
-                onChange={ev => setLoginPassword(ev.target.value)}
-              />
-              <button>Login</button>
-              <p>{loginMessage}</p>
-            </form>
+            <Login exchangeTokenForUser={exchangeTokenForUser}/>
           </div>
         ) : null
       }
