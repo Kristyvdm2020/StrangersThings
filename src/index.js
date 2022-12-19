@@ -5,17 +5,12 @@ import Posts from './Posts';
 import Post from './Post';
 import Nav from './Nav';
 import Login from './Login';
+import Register from './Register';
 
 const App = () => {
   //https://strangers-things.herokuapp.com/api/
   //https://strangers-things.herokuapp.com/api/2209-FTB-WEB-PT_AM/posts
   const [posts, setPosts] = useState([]);
-  const [registerUsername, setRegisterUsername] = useState('');
-  const [registerPassword, setRegisterPassword] = useState('');
-  const [registerMessage, setRegisterMessage] = useState('');
-  const [loginUsername, setLoginUsername] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-  const [loginMessage, setLoginMessage] = useState('');
   const [user, setUser] = useState([]);
 
   const exchangeTokenForUser = () => {
@@ -44,33 +39,7 @@ const App = () => {
     exchangeTokenForUser();
   }, []);
 
-  const register = (ev) => {
-    ev.preventDefault();
-    fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/register', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        user: {
-          username: registerUsername,
-          password: registerPassword
-        }
-      })
-    })
-    .then(response => response.json())
-    .then(result => {
-      //Verifying successful registration & message to user
-      if(result.success) {
-        setRegisterMessage(result.data.message);
-      } else {
-        setRegisterMessage(result.error.message);
-        throw result.error;
-      }
-    })
-    .catch(err => console.log(err));
-  }
-
+  
   const logout = () => {
     window.localStorage.removeItem('token');
     setUser({});
@@ -89,20 +58,7 @@ const App = () => {
       {
         !user._id ? (
           <div>
-            <form onSubmit = { register }>
-              <input
-                placeholder='username'
-                value={registerUsername}
-                onChange={ev => setRegisterUsername(ev.target.value)}
-              />
-              <input
-                placeholder='password'
-                value={registerPassword}
-                onChange={ev => setRegisterPassword(ev.target.value)}
-              />
-              <button>Register</button>
-              <p>{registerMessage}</p>
-            </form>
+            <Register />
             <Login exchangeTokenForUser={exchangeTokenForUser}/>
           </div>
         ) : null

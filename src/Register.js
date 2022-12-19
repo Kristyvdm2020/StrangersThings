@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 
-const Login = (props) => {
-    const { exchangeTokenForUser } = props;
+const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
 
-    const login = (ev) => {
+    const register = (ev) => {
         ev.preventDefault();
-        fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/login', {
+        fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/register', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -22,24 +21,21 @@ const Login = (props) => {
         })
             .then(response => response.json())
             .then(result => {
-                //Verifying successful login & message to user
+                //Verifying successful registration & message to user
                 if (result.success) {
                     setMessage(result.data.message);
                 } else {
                     setMessage(result.error.message);
                     throw result.error;
                 }
-                //Get the token
-                const token = result.data.token;
-                window.localStorage.setItem('token', token);
-                exchangeTokenForUser();
             })
             .catch(err => console.log(err));
     }
 
 
     return (
-        <form onSubmit={login}>
+
+        <form onSubmit={register}>
             <input
                 placeholder='username'
                 value={username}
@@ -50,10 +46,12 @@ const Login = (props) => {
                 value={password}
                 onChange={ev => setPassword(ev.target.value)}
             />
-            <button>Login</button>
+            <button>Register</button>
             <p>{message}</p>
         </form>
+
+
     );
 };
 
-export default Login;
+export default Register;
