@@ -41,12 +41,12 @@ const Login = (props) => {
     return (
         <form onSubmit={login}>
             <input
-                placeholder='username'
+                placeholder=' username'
                 value={username}
                 onChange={ev => setUsername(ev.target.value)}
             />
             <input
-                placeholder='password'
+                placeholder=' password'
                 value={password}
                 onChange={ev => setPassword(ev.target.value)}
             />

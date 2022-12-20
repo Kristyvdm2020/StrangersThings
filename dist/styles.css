@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  border: 0;
   margin: 0;
   padding: 0;
 }
@@ -44,6 +45,7 @@ form {
 form > input, button {
   height: 2.5rem;
   width: 300px;
+  border: solid 1px black;
 }
 
 form > button {
@@ -53,4 +55,16 @@ form > button {
 
 form > *{
   margin: 0.5px;
+}
+
+#container {
+  display: flex;
+}
+
+#signIn {
+  margin: 1rem;
+}
+
+#pages {
+  margin: 1rem;
 }
