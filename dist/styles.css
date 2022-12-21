@@ -69,9 +69,15 @@ form > *{
   margin: 1rem;
 }
 
-li > button {
-  height: 1rem;
-  width: 50px;
+.delete-button {
+  height: 1.5rem;
+  width: 70px;
   border: solid 1px black;
   background-color: red;
+}
+
+.edit-button {
+  height: 1.5rem;
+  width: 70px;
+  border: solid 1px black;
 }

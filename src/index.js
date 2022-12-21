@@ -14,7 +14,7 @@ const App = () => {
   const [user, setUser] = useState([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState('[On Request]');
   const [price, setPrice] = useState('');
   const [token, setToken] = useState(null);
 
@@ -66,7 +66,7 @@ const App = () => {
             title: title,
             description: description,
             price: price,
-            location: location
+            location: location, 
           }
         })
       })
@@ -82,7 +82,7 @@ const App = () => {
   const clearForm = () => {
     setTitle('');
     setDescription('');
-    setLocation('');
+    setLocation('[On Request]');
     setPrice('');
   }
 
@@ -108,24 +108,24 @@ const App = () => {
           user._id ? (
           <form onSubmit={ createPost }>
             <input 
-              placeholder=' Listing Title'
+              placeholder=' Listing Title (required)'
               value={ title }
               onChange={ev => setTitle(ev.target.value)}
             />
             <input 
-              placeholder=' Description'
+              placeholder=' Description (required)'
               value={ description }
               onChange={ev => setDescription(ev.target.value)}
+            />
+            <input 
+              placeholder=' Price (required)'
+              value={ price }
+              onChange={ev => setPrice(ev.target.value)}
             />
             <input 
               placeholder=' Location'
               value={ location }
               onChange={ev => setLocation(ev.target.value)}
-            />
-            <input 
-              placeholder=' Price'
-              value={ price }
-              onChange={ev => setPrice(ev.target.value)}
             />
             <button>Create Post</button>
           </form>
@@ -135,7 +135,7 @@ const App = () => {
         <div id='pages'>
           <Routes>
             <Route path='/posts/:id' element={
-              <Post posts={posts} />
+              <Post posts={posts} user={user} token={token}/>
             } />
             <Route path='/posts' element={
               <Posts posts={posts} user={user} token={token}/>
