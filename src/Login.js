@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Login = (props) => {
-    const { exchangeTokenForUser } = props;
+    const { exchangeTokenForUser, setToken } = props;
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -47,6 +47,7 @@ const Login = (props) => {
             />
             <input
                 placeholder=' password'
+                type='password'
                 value={password}
                 onChange={ev => setPassword(ev.target.value)}
             />

@@ -9,16 +9,18 @@ import Register from './Register';
 
 const App = () => {
   //https://strangers-things.herokuapp.com/api/
-  //https://strangers-things.herokuapp.com/api/2209-FTB-WEB-PT_AM/posts
+  //https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const [price, setPrice] = useState('');
+  const [token, setToken] = useState(null);
 
   const exchangeTokenForUser = () => {
     const token = window.localStorage.getItem('token');
+    setToken(token);
     if(token) {
       fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/me', {
         headers: {
@@ -41,20 +43,17 @@ const App = () => {
       .then(json => setPosts(json.data.posts));
 
     exchangeTokenForUser();
-  }, []);
+  }, [posts]);
 
   
   const logout = () => {
     window.localStorage.removeItem('token');
+    setToken(null);
     setUser({});
-    //setRegisterMessage('');
-    //setLoginMessage('');
   }
 
   const createPost = (ev) => {
     ev.preventDefault();
-    const token = window.localStorage.getItem('token');
-    console.log(token);
     if(token) {
       fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts', {
         method: "POST",
@@ -76,7 +75,15 @@ const App = () => {
         console.log(result);
       })
       .catch(err => console.log(err));
+      clearForm();
     }
+  }
+
+  const clearForm = () => {
+    setTitle('');
+    setDescription('');
+    setLocation('');
+    setPrice('');
   }
 
   return (
@@ -93,7 +100,7 @@ const App = () => {
           !user._id ? (
             <div>
               <Register />
-              <Login exchangeTokenForUser={exchangeTokenForUser}/>
+              <Login exchangeTokenForUser={exchangeTokenForUser} setToken={setToken}/>
             </div>
           ) : null
         }
@@ -131,11 +138,8 @@ const App = () => {
               <Post posts={posts} />
             } />
             <Route path='/posts' element={
-              <Posts posts={posts} user={user}/>
+              <Posts posts={posts} user={user} token={token}/>
             } />
-            {/* <Route path='/logout' element= {
-              <div>Thank you for logging out.</div>
-            } /> */}
             <Route path='/' element={<h1>Home</h1>} />
           </Routes>
         </div>
