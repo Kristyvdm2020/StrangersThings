@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Posts = (props)=> {
-  const {posts} = props;
+  const {posts, user} = props;
   return (
     <div>
       <h1>Posts</h1>
@@ -12,6 +12,7 @@ const Posts = (props)=> {
             return (
               <li key={post._id}>
                 <Link to={`/posts/${post._id}`}>{post.title}</Link>
+                { user._id === post.author._id ? (<button>Delete</button>):null}
               </li>
             )
           })

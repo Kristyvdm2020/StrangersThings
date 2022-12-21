@@ -68,3 +68,10 @@ form > *{
 #pages {
   margin: 1rem;
 }
+
+li > button {
+  height: 1rem;
+  width: 50px;
+  border: solid 1px black;
+  background-color: red;
+}

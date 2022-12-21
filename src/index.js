@@ -131,7 +131,7 @@ const App = () => {
               <Post posts={posts} />
             } />
             <Route path='/posts' element={
-              <Posts posts={posts} />
+              <Posts posts={posts} user={user}/>
             } />
             {/* <Route path='/logout' element= {
               <div>Thank you for logging out.</div>
