@@ -81,3 +81,14 @@ form > *{
   width: 70px;
   border: solid 1px black;
 }
+
+#message-form {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.message-input {
+  height: 5rem;
+  width: 500px;
+}
