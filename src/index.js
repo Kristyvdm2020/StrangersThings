@@ -14,7 +14,7 @@ const App = () => {
   const [user, setUser] = useState([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('[On Request]');
+  const [location, setLocation] = useState('');
   const [price, setPrice] = useState('');
   const [token, setToken] = useState(null);
 
@@ -66,7 +66,7 @@ const App = () => {
             title: title,
             description: description,
             price: price,
-            location: location, 
+            location: !location ? '[On Request]': location, 
           }
         })
       })
@@ -82,7 +82,7 @@ const App = () => {
   const clearForm = () => {
     setTitle('');
     setDescription('');
-    setLocation('[On Request]');
+    setLocation('');
     setPrice('');
   }
 
@@ -126,6 +126,7 @@ const App = () => {
               placeholder=' Location'
               value={ location }
               onChange={ev => setLocation(ev.target.value)}
+              //{location ? setLocation(ev.target.value):setLocation('[On Request]')}
             />
             <button>Create Post</button>
           </form>

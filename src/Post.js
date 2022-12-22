@@ -23,6 +23,7 @@ const Post = (props) => {
     })
     .catch(console.error);
   }
+
   return (
     <div>
       <h1><Link to='/posts'>{post.title}</Link></h1> 
