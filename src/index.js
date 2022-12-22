@@ -6,16 +6,13 @@ import Post from './Post';
 import Nav from './Nav';
 import Login from './Login';
 import Register from './Register';
+import NewPost from './NewPost';
 
 const App = () => {
   //https://strangers-things.herokuapp.com/api/
   //https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState([]);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
-  const [price, setPrice] = useState('');
   const [token, setToken] = useState(null);
 
   const exchangeTokenForUser = () => {
@@ -52,40 +49,7 @@ const App = () => {
     setUser({});
   }
 
-  const createPost = (ev) => {
-    ev.preventDefault();
-    if(token) {
-      fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          post: {
-            title: title,
-            description: description,
-            price: price,
-            location: !location ? '[On Request]': location, 
-          }
-        })
-      })
-      .then(response => response.json())
-      .then(result => {
-        console.log(result);
-      })
-      .catch(err => console.log(err));
-      clearForm();
-    }
-  }
-
-  const clearForm = () => {
-    setTitle('');
-    setDescription('');
-    setLocation('');
-    setPrice('');
-  }
-
+ 
   return (
     <div>
       <h1>Stranger's Things</h1>
@@ -102,35 +66,7 @@ const App = () => {
               <Register />
               <Login exchangeTokenForUser={exchangeTokenForUser} setToken={setToken}/>
             </div>
-          ) : null
-        }
-        {
-          user._id ? (
-          <form onSubmit={ createPost }>
-            <input 
-              placeholder=' Listing Title (required)'
-              value={ title }
-              onChange={ev => setTitle(ev.target.value)}
-            />
-            <input 
-              placeholder=' Description (required)'
-              value={ description }
-              onChange={ev => setDescription(ev.target.value)}
-            />
-            <input 
-              placeholder=' Price (required)'
-              value={ price }
-              onChange={ev => setPrice(ev.target.value)}
-            />
-            <input 
-              placeholder=' Location'
-              value={ location }
-              onChange={ev => setLocation(ev.target.value)}
-              //{location ? setLocation(ev.target.value):setLocation('[On Request]')}
-            />
-            <button>Create Post</button>
-          </form>
-          ) : null
+          ) : <NewPost token={token}/>
         }
         </div>
         <div id='pages'>
