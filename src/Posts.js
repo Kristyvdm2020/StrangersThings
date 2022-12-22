@@ -7,15 +7,15 @@ const Posts = (props)=> {
   
 
   return (
-    <div>
+    <div id='posts-collection'>
       <h1>Posts</h1>
-      <ul>
+      <ul id='posts'>
         {
           posts.map(post => {
               
             return (
               <li key={post._id}>
-                <Link to={`/posts/${post._id}`}>{post.title}</Link>
+                <Link to={`/posts/${post._id}`}>{post.title} ({post.price})</Link>
                 { user._id === post.author._id ? (<button className="delete-button" onClick={() => deletePost(post._id, token)}>Delete</button>):null}
               </li>
             )

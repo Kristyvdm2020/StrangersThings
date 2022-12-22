@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getAllPosts } from './api';
 
 const NewPost = (props) => {
     const { token } = props;
@@ -32,6 +33,7 @@ const NewPost = (props) => {
                 })
                 .catch(err => console.log(err));
             clearForm();
+            getAllPosts();
         }
     }
     
