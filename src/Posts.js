@@ -1,10 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { deletePost } from './api/';
+//import { deletePost } from './api/';
 
 const Posts = (props)=> {
-  const {posts, user, token } = props;
+  const {posts, setPosts, user, token } = props;
   
+  const deletePost = (id, token) => {
+    fetch(`https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts/${id}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+            const NewPosts = posts.filter(post => post._id !== id)
+            setPosts(NewPosts);
+        })
+        .catch(console.error);
+  }
 
   return (
     <div id='posts-collection'>

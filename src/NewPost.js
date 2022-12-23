@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const NewPost = (props) => {
-    const { token, getAllPosts } = props;
+    const { token, posts, setPosts } = props;
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -28,11 +28,12 @@ const NewPost = (props) => {
             })
                 .then(response => response.json())
                 .then(result => {
-                    console.log(result);
+                    //console.log(result.data.post);
+                    let data = result.data.post;
+                    setPosts([...posts, data]);
                 })
                 .catch(err => console.log(err));
             clearForm();
-            getAllPosts();
         }
     }
     

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Login = (props) => {
-    const { exchangeTokenForUser, setToken } = props;
+    const { exchangeTokenForUser } = props;
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');

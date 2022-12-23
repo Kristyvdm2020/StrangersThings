@@ -83,16 +83,16 @@ const App = () => {
                 <Register />
                 <Login exchangeTokenForUser={exchangeTokenForUser} setToken={setToken}/>
               </div>
-            ) : <NewPost token={token} getAllPosts={getAllPosts}/>
+            ) : <NewPost token={token} getAllPosts={getAllPosts} exchangeTokenForUser={exchangeTokenForUser} posts={posts} setPosts={setPosts}/>
           }
         </div>
         <div id='pages'>
           <Routes>
             <Route path='/posts/:id' element={
-              <Post posts={posts} user={user} token={token} getAllPosts={getAllPosts}/>
+              <Post posts={posts} setPosts={setPosts} user={user} token={token} />
             } />
             <Route path='/posts' element={
-              <Posts posts={posts} user={user} token={token} getAllPosts={getAllPosts}/>
+              <Posts posts={posts} setPosts={setPosts} user={user} token={token} />
             } />
             <Route path='/' element={
               <Home user={user} messages={messages} myPosts={myPosts}/>
