@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom/client';
 import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route, Link, useParams, useLocation } from 'react-router-dom';
 import Home from './Home';
+import Profile from './Profile';
 import Posts from './Posts';
 import Post from './Post';
 import Nav from './Nav';
@@ -94,8 +95,11 @@ const App = () => {
             <Route path='/posts' element={
               <Posts posts={posts} setPosts={setPosts} user={user} token={token} />
             } />
+            <Route path='/profile' element={
+              <Profile user={user} messages={messages} myPosts={myPosts} />
+            } />
             <Route path='/' element={
-              <Home user={user} messages={messages} myPosts={myPosts}/>
+              <Home />
             } />
           </Routes>
         </div>
