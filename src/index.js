@@ -8,7 +8,6 @@ import Nav from './Nav';
 import Login from './Login';
 import Register from './Register';
 import NewPost from './NewPost';
-import { getAllPosts } from './api';
 
 const App = () => {
   //https://strangers-things.herokuapp.com/api/
@@ -42,17 +41,19 @@ const App = () => {
     }
   }
 
-  useEffect(() => {
-    getAllPosts(token, setPosts);
-    // fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts', {
-    //   headers: {
-    //     'Content-Type' : 'application/json',
-    //     'Authorization' : `Bearer ${token}`
-    //   },
-    // })
-    //   .then(response => response.json())
-    //   .then(json => setPosts(json.data.posts));
+  const getAllPosts = () => {
+    fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts', {
+      headers: {
+        'Content-Type' : 'application/json',
+        'Authorization' : `Bearer ${token}`
+      },
+    })
+    .then(response => response.json())
+    .then(json => setPosts(json.data.posts));
+  }
 
+  useEffect(() => {
+    getAllPosts();
     exchangeTokenForUser();
   }, [token]);
 
@@ -82,16 +83,16 @@ const App = () => {
                 <Register />
                 <Login exchangeTokenForUser={exchangeTokenForUser} setToken={setToken}/>
               </div>
-            ) : <NewPost token={token}/>
+            ) : <NewPost token={token} getAllPosts={getAllPosts}/>
           }
         </div>
         <div id='pages'>
           <Routes>
             <Route path='/posts/:id' element={
-              <Post posts={posts} user={user} token={token}/>
+              <Post posts={posts} user={user} token={token} getAllPosts={getAllPosts}/>
             } />
             <Route path='/posts' element={
-              <Posts posts={posts} user={user} token={token}/>
+              <Posts posts={posts} user={user} token={token} getAllPosts={getAllPosts}/>
             } />
             <Route path='/' element={
               <Home user={user} messages={messages} myPosts={myPosts}/>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { deletePost } from './api/';
 
 const Posts = (props)=> {
-  const {posts, user, token} = props;
+  const {posts, user, token } = props;
   
 
   return (
@@ -16,7 +16,7 @@ const Posts = (props)=> {
             return (
               <li key={post._id}>
                 <Link to={`/posts/${post._id}`}>{post.title} ({post.price})</Link>
-                { user._id === post.author._id ? (<button className="delete-button" onClick={() => deletePost(post._id, token)}>Delete</button>):null}
+                { user._id === post.author._id ? (<button className="delete-button" onClick={() => {deletePost(post._id, token)}}>Delete</button>):null}
               </li>
             )
           })

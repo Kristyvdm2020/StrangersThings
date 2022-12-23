@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { getAllPosts } from './api';
 
 const NewPost = (props) => {
-    const { token } = props;
+    const { token, getAllPosts } = props;
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
