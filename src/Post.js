@@ -56,8 +56,6 @@ const Post = (props) => {
       <div>
         <h1><Link to='/posts'>{post.title}</Link></h1> 
         <span>
-          {/* {user._id === post.author._id ? 
-            (<button className="edit-button">Edit</button>) : null} */}
           { user._id === post.author._id ? 
             (<button className="delete-button" 
               onClick={() => {
@@ -69,24 +67,28 @@ const Post = (props) => {
         <p>Listing Price: {post.price}</p>
         <p>Description: {post.description}</p> 
       </div>
-      { user._id !== post.author._id ? (
-        <div>
-          <h3>Send seller a message: </h3>
-          <form id='message-form' onSubmit = { sendMessage }>
-            <input 
-              className="message-input" 
-              placeholder = 'Type message here'
-              value = { inquiry }
-              onChange = {ev => setInquiry(ev.target.value)}
-            />
-            <button>Send Message</button>
-          </form>
-        </div>
-        ) : null 
+      { user._id ?
+      <div> 
+        { user._id !== post.author._id ? (
+          <div>
+            <h3>Send seller a message:</h3>
+            <form id='message-form' onSubmit = { sendMessage }>
+              <input 
+                className="message-input" 
+                placeholder = 'Type message here'
+                value = { inquiry }
+                onChange = {ev => setInquiry(ev.target.value)}
+              />
+              <button>Send Message</button>
+            </form>
+          </div>
+          ) : null 
+        } 
+      </div> : null
       }
       { user._id === post.author._id ? (
         <div>
-          <h3>Messages ({post.messages.length})</h3>
+          <h3><Link to='/profile'>Messages ({post.messages.length})</Link></h3>
           <ul>
             {
               post.messages.map(message => {

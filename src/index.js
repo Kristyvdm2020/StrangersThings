@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import React, { useState, useEffect } from 'react';
-import { HashRouter, Routes, Route, Link, useParams, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Home from './Home';
 import Profile from './Profile';
 import Posts from './Posts';
@@ -56,7 +56,7 @@ const App = () => {
   useEffect(() => {
     getAllPosts();
     exchangeTokenForUser();
-  }, [token]);
+  }, []);
 
   
   const logout = () => {
@@ -96,7 +96,7 @@ const App = () => {
               <Posts posts={posts} setPosts={setPosts} user={user} token={token} />
             } />
             <Route path='/profile' element={
-              <Profile user={user} messages={messages} myPosts={myPosts} />
+              <Profile user={user} messages={messages} myPosts={myPosts} exchangeTokenForUser={exchangeTokenForUser} />
             } />
             <Route path='/' element={
               <Home />

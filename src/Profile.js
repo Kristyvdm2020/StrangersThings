@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 
 const Profile = (props) => {
-    const { user, messages, myPosts } = props;
+    const { user, messages, myPosts, exchangeTokenForUser } = props;
+
+    useEffect(() => {
+        exchangeTokenForUser();
+    }, []);
+    
     return (
         <div>
             {user._id ?
@@ -12,9 +17,12 @@ const Profile = (props) => {
                     <ul>
                         {
                             messages.map((message, idx) => {
-                                console.log(message);
+                                //console.log(message);
                                 return (
-                                    <li key={idx}>{message.content}</li>
+                                    <li key={idx}>
+                                        <p><Link to={`/posts/${message.post._id}`}>{message.post.title}</Link></p>
+                                        {message.fromUser.username}: {message.content}
+                                    </li>
                                 )
                             })
                         }
