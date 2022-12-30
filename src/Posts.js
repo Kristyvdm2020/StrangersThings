@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-//import { deletePost } from './api/';
 
 const Posts = (props)=> {
   const {posts, setPosts, user, token } = props;

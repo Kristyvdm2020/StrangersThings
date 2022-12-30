@@ -17,7 +17,6 @@ const Profile = (props) => {
                     <ul>
                         {
                             messages.map((message, idx) => {
-                                //console.log(message);
                                 return (
                                     <li key={idx}>
                                         <p><Link to={`/posts/${message.post._id}`}>{message.post.title}</Link></p>

@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useParams} from 'react-router-dom';
-//import { deletePost } from './api/';
 
 const Post = (props) => {
   const {posts, setPosts, user, token } = props;
   const [inquiry, setInquiry] = useState('');
   const id = useParams().id;
   const post = posts.find(post => post._id === id);
-  //console.log(post);
 
   if(!post) {
     return null;

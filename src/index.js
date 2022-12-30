@@ -11,8 +11,6 @@ import Register from './Register';
 import NewPost from './NewPost';
 
 const App = () => {
-  //https://strangers-things.herokuapp.com/api/
-  //https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState([]);
   const [messages, setMessages] = useState([]);

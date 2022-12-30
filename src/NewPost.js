@@ -28,7 +28,6 @@ const NewPost = (props) => {
             })
                 .then(response => response.json())
                 .then(result => {
-                    //console.log(result.data.post);
                     let data = result.data.post;
                     setPosts([...posts, data]);
                 })
