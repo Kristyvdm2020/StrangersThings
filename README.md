@@ -1,5 +1,22 @@
-# template for react-client-application 
+# [StrangersThings](https://vandi-strangers-things.netlify.app/#/)
 
-- npm i
-- npm run build
-- open file dist/index.html from browser
+Building a Front-End application to allow users to create posts and send messages about posts they are interested in.
+
+[API Docs](https://strangers-things.herokuapp.com/api/)
+
+## Getting Started
+
+Install Packages
+
+    npm i
+
+
+Open file dist/index.html from browser
+
+## Deploying Application
+
+Run using Webpack
+
+    npm run build
+
+Deployed using Netlify
